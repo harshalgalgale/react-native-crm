@@ -25,6 +25,11 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from '../reducers/PeopleReducer';
+
+const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -60,6 +65,7 @@ const App: () => Node = () => {
   };
 
   return (
+    <Provider store={store}>
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
@@ -88,6 +94,7 @@ const App: () => Node = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
+    </Provider>
   );
 };
 
